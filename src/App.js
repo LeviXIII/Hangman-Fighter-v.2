@@ -2,13 +2,11 @@
 // HANGMAN FIGHTER v.2//
 ////////////////////////
 
-
 import React, { Component } from 'react';
 import Sound from 'react-sound';
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducers from './reducers';
+import { connect } from 'react-redux';
+import * as actions from './actions';
 
 import Instructions from './component/Instructions';
 import CharImages from './component/CharImages';
@@ -26,10 +24,8 @@ class App extends Component {
 
     this.state = {
         gameState: {
-          words: ['hey','person','you','think','youre','better',
-            'than','me','round','one','congratulations'],
           letter: '',
-          answer: '',
+          //answer: '',
           nWrong: 0,
           pastGuesses: [],
           rightGuesses: 0,			  //Used to count against the length of the answer.
@@ -104,14 +100,18 @@ class App extends Component {
   //This function selects a random word as the answer and starts the game.
   //It will only one once per game due to the startGameFlag.
   startGame(newRecord) {
-    const index = Math.floor(Math.random()*this.state.gameState.words.length);
-
+    
+    const index = Math.floor(Math.random()*this.props.words.length);
+    this.props.setAnswer(this.props.words[index]);
+    
     if (this.state.gameState.letter === 'y' || 
       this.state.gameState.startGameFlag === true) {
       
+      console.log(this.props.answer);
+      
       this.setState({ gameState: {
         ...this.state.gameState,
-        answer: this.state.gameState.words[index],
+        //answer: this.props.setAnswer(this.props.words[index]),
         startGameFlag: false,
         letter: '',
         nWrong: 0,
@@ -279,7 +279,6 @@ class App extends Component {
     return (
       <div>
         <Router>
-        <Provider store={createStore(reducers)}>
           <div className="container">
           <div className="titledisplay">
             <span className="linkheading"><Link to="/instructions">Instructions</Link></span>
@@ -301,7 +300,6 @@ class App extends Component {
               }/>
           </Switch>
           </div>
-          </Provider>
         </Router>
         
         
@@ -310,10 +308,16 @@ class App extends Component {
           url={StartSound}
           playStatus={Sound.status.PLAYING}
         />}
-        
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    words: state.words,
+    answer: state.gameState.answer,
+  };
+};
+
+export default connect(mapStateToProps, actions)(App);

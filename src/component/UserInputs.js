@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class UserInputs extends Component {
     render() {
@@ -6,7 +7,7 @@ class UserInputs extends Component {
         let userPrompt;
         
         //Changes the prompts depending on game's state.
-        if (this.props.gameState.answer.length === this.props.gameState.rightGuesses
+        if (this.props.answer.length === this.props.gameState.rightGuesses
             || this.props.gameState.nWrong >= 6) {
                 userPrompt = 'Next Round? y/n';
                 buttonMsg = 'Submit';
@@ -37,4 +38,10 @@ class UserInputs extends Component {
     }
 }
 
-export default UserInputs;
+const mapStateToProps = (state) => {
+    return {
+        answer: state.gameState.answer,
+    }
+}
+
+export default connect(mapStateToProps)(UserInputs);

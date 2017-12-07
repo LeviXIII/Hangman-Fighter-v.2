@@ -1,0 +1,1 @@
+export const SET_ANSWER = 'set_answer';

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Sound from 'react-sound';
 
 import You from '../audio/You-sound.mp3';
@@ -15,7 +16,7 @@ class StatusScreen extends Component {
         if (this.props.gameState.nWrong >= 6) {
             currentStatus = <div>
                                 <p>YOU LOSE!</p>
-                                <p>The answer is: {this.props.gameState.answer}</p>
+                                <p>The answer is: {this.props.answer}</p>
                                 {!this.props.gameState.decisionSound &&
                                 <Sound url={You}
                                     playStatus={Sound.status.PLAYING}
@@ -87,4 +88,10 @@ class StatusScreen extends Component {
         }
 }
 
-export default StatusScreen;
+const mapStateToProps = (state) => {
+    return {
+        answer: state.gameState.answer,
+    }
+}
+
+export default connect(mapStateToProps)(StatusScreen);
