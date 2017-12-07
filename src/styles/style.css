@@ -1,0 +1,176 @@
+@font-face {
+    font-family: 'paintbrush';
+    src: url(../images/edosz.ttf);
+}
+@keyframes hadouken
+{
+    from {
+        margin-left: 0%;
+    }
+    to {
+        margin-left: 30%;
+    }
+}
+body {
+    height: 100vh;
+}
+h1, h3 {
+    margin: 1%;
+    text-align: center;
+}
+html {
+    background-attachment: fixed;
+    background-image: url('../images/Ryu-stage.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-blend-mode: lighten;
+    margin: 0px;
+    height: 100%;
+}
+.action {
+    visibility: hidden;
+}
+.backgroundImage {
+    position: absolute;
+    background-attachment: fixed;
+    background-image: url('../images/Ryu-stage.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-blend-mode: lighten;
+    width: 100%;
+    height: auto;
+}
+.blanks {
+    font-size: 2em;
+    font-family: 'paintbrush', 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    width: 100%;
+    text-align: center;  
+}
+.fireball {
+    animation-name: hadouken;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+.headingfont{
+    font-family: 'paintbrush', 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+}
+.healthBar1 {
+    position: absolute;
+    left: 6%;
+    bottom: 8%;
+}
+.healthBar2 {
+    position: absolute;
+    right: 6%;
+    bottom: 8%;
+}
+.kenIdle {
+    width: 25%;
+    height: 65vh;
+    float: left;
+}
+.linkheading {
+    font-family: 'paintbrush', 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    font-size: 28px;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 2%;
+}
+.revealgame {
+    visibility: visible;
+}
+.ryuIdle {
+    width: 25%;
+    height: 65vh;
+    position: relative;
+    float: right;
+
+    /* Flips image for different browsers */
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: "FlipH";
+    -ms-filter: "FlipH";
+}
+.status {
+    font-size: 2em;
+    font-family:'paintbrush', 'Segoe UI', Tahoma, 'Geneva', Verdana, sans-serif;
+    width: 100%;
+    text-align: center;
+    display: block;
+}
+.titledisplay {
+    display: flex;
+    justify-content: space-between;
+}
+.titlefont {
+    display: block;
+    margin: 0% auto;
+    margin-top: 2%;
+}
+#continuebutton {
+    display: none;
+    font-size: 1.5em;
+    text-align: center;
+    margin: 0.5% auto;
+}
+#continueinput {
+    text-align: center;
+    display: none;
+    font-size: 1em;
+    margin: 0px auto;
+    width: 40%;
+    height: 2em;
+}
+#continueprompts {
+    display: none;
+    font-size: 1.2em;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    margin: 1%;
+}
+#guess {
+    display: block;
+    font-size: 1.5em;
+    text-align: center;
+    margin: 0.5% auto;
+}
+#prompts {
+    font-size: 1.2em;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    margin: 1%;
+}
+#userinput {
+    text-align: center;
+    display: block;
+    font-size: 1em;
+    margin: 0px auto;
+    width: 40%;
+    height: 2em;
+}
+
+/* CSS for Transitions package */
+.example-enter {
+    opacity: 0.01;
+  }
+  
+  .example-enter.example-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+  
+  .example-leave {
+    opacity: 1;
+  }
+  
+  .example-leave.example-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
