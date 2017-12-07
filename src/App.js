@@ -2,31 +2,6 @@
 // HANGMAN FIGHTER v.2//
 ////////////////////////
 
-////////////////////////////////
-//THINGS I LEARNED (FAILED AT)//
-////////////////////////////////
-
-/*
-  1.  This was very difficult to change from jQuery and Javascript.
-  2.  Sound doesn't work the way I want it to.
-  3.  Pictures don't animate the way I want them to due to limitations
-      in the package I used (TransitionsGroup).
-  4.  Forcing a state change by changing pictures with setState
-      produces side-effects.
-  5.  Trying to work around one state store is maddening.
-  6.  Not sure if Redux would have saved me.
-  7.  Any suggestions on how to organize this better would be welcomed.
-      As of now, I feel like there are too many corner-case checks
-      and it is not very DRY due to having to force state changes.
-  8.  React doesn't seem like a good thing to use for this type of
-      application (please correct me if I'm wrong.)
-  9.  Overall, I feel very limited by state and re-rendering. I want
-      to learn how to use shouldComponentUpdate, but I don't feel like
-      any of the lifecycle methods would have made my life easier.
-      Maybe React isn't the best framework to use for this type of app?
-      Please feel free to correct me if I'm wrong.
-*/
-
 
 import React, { Component } from 'react';
 import Sound from 'react-sound';
