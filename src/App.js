@@ -8,6 +8,7 @@ import Sound from 'react-sound';
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import reducers from './reducers';
 
 import Instructions from './component/Instructions';
 import CharImages from './component/CharImages';
@@ -278,6 +279,7 @@ class App extends Component {
     return (
       <div>
         <Router>
+        <Provider store={createStore(reducers)}>
           <div className="container">
           <div className="titledisplay">
             <span className="linkheading"><Link to="/instructions">Instructions</Link></span>
@@ -299,13 +301,16 @@ class App extends Component {
               }/>
           </Switch>
           </div>
+          </Provider>
         </Router>
+        
         
         {/* Plays Starting sound effect if it is a new round. */}
         {this.state.gameState.newRound && <Sound
           url={StartSound}
           playStatus={Sound.status.PLAYING}
         />}
+        
       </div>
     );
   }
