@@ -22,8 +22,8 @@ class LifeBars extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        totalHealth1: state.gameState.totalHealth1,
-        totalHealth2: state.gameState.totalHealth2,
+        totalHealth1: state.animation.totalHealth1,
+        totalHealth2: state.animation.totalHealth2,
     }
 }
 

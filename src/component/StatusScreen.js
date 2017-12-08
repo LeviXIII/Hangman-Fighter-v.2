@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Sound from 'react-sound';
+import ReactAudioPlayer from 'react-audio-player';
 
 import You from '../audio/You-sound.mp3';
 import Lose from '../audio/Lose-Sound.mp3';
@@ -8,9 +9,11 @@ import Win from '../audio/Win-sound.mp3';
 import Perfect from '../audio/Perfect-sound.mp3';
 
 class StatusScreen extends Component {
+
     render() {
         let currentStatus;
-        
+        let newSound = <ReactAudioPlayer src={Win} autoPlay/>
+
         //Checks the status of the game and prints it to the
         //screen.
         if (this.props.nWrong >= 6) {
@@ -57,16 +60,18 @@ class StatusScreen extends Component {
         else if (this.props.answer.length === this.props.rightGuesses) {
             currentStatus = <div>
                                 <p>YOU WIN!</p>
-                                {!this.props.decisionSound &&
+                                <ReactAudioPlayer src={You} autoPlay onEnded={() => {<ReactAudioPlayer src={Win} autoPlay/>}}/>
+                                {/* {!this.props.decisionSound &&
                                 <Sound url={You}
                                     playStatus={Sound.status.PLAYING}
-                                    loop={false}
-                                />}
-                                {!this.props.decisionSound &&
+                                    onFinishedPlaying={() => {<Sound url={Win} playStatus={Sound.status.PLAYING}/>}}
+                                />} */}
+                                {/* {!this.props.decisionSound &&
                                 <Sound url={Win}
                                     playStatus={Sound.status.PLAYING}
                                     loop={false}
-                                />}
+                                />} */}
+                                <ReactAudioPlayer src={Win} autoPlay onEnded={() => {<ReactAudioPlayer src={Win} autoPlay/>}} />
                             </div>;
             
         }
@@ -92,6 +97,7 @@ const mapStateToProps = (state) => {
         answer: state.gameState.answer,
         nWrong: state.gameState.nWrong,
         pastGuesses: state.gameState.pastGuesses,
+        rightGuesses: state.gameState.rightGuesses,
         decisionSound: state.animation.decisionSound,
         guessesRemaining: state.gameState.guessesRemaining,
     }
