@@ -74,7 +74,7 @@ class App extends Component {
     
     //Check to see if the game is over and decides whether to start
     //a new game or not.
-    if (this.state.gameState.answer.length === this.state.gameState.rightGuesses
+    if (this.props.answer.length === this.state.gameState.rightGuesses
       || this.state.gameState.nWrong >= 6) {
         //Reset the state if starting again.
         if (this.state.gameState.letter === 'y' || this.state.gameState.letter === 'n') {
@@ -86,7 +86,7 @@ class App extends Component {
                                           this.state.gameState.pastGuesses,
                                           this.state.gameState.pastGuesses.length));
           }
-          else if (this.state.gameState.answer.length === this.state.gameState.rightGuesses){
+          else if (this.props.answer.length === this.state.gameState.rightGuesses){
             //Add the stats of the game to an array of objects.
             gameStats.push(new this.GameStats('win', 
                                           this.state.gameState.pastGuesses,
@@ -103,11 +103,12 @@ class App extends Component {
     
     const index = Math.floor(Math.random()*this.props.words.length);
     this.props.setAnswer(this.props.words[index]);
+    console.log(this.props.answer);
     
     if (this.state.gameState.letter === 'y' || 
       this.state.gameState.startGameFlag === true) {
       
-      console.log(this.props.answer);
+      
       
       this.setState({ gameState: {
         ...this.state.gameState,
@@ -142,7 +143,7 @@ class App extends Component {
     
     //This if/else is entirely to try to stop the 'YOU WIN'
     //sound effects from repeating, but it doesn't work properly. 
-    if (this.state.gameState.answer.length === this.state.gameState.rightGuesses
+    if (this.props.answer.length === this.state.gameState.rightGuesses
       || this.state.gameState.nWrong >= 6) {
         this.setState({ gameState: {
           ...this.state.gameState,
@@ -191,7 +192,7 @@ class App extends Component {
     let letterFound = false;	//Flag to proceed with a correct guess.
   
     //Will stop the game after final guess if false.
-    if (this.state.gameState.answer.length === this.state.gameState.rightGuesses
+    if (this.props.answer.length === this.state.gameState.rightGuesses
       || this.state.gameState.nWrong >= 6) {
       continueGame = false;
     }
@@ -213,16 +214,16 @@ class App extends Component {
         pastGuesses.push(this.state.gameState.letter);
         
         //Goes through answer string to check if guess is correct.
-        for (let i=0; i < this.state.gameState.answer.length; i++) {
-          if (this.state.gameState.answer[i] === this.state.gameState.letter) {
+        for (let i=0; i < this.props.answer.length; i++) {
+          if (this.props.answer[i] === this.state.gameState.letter) {
             letterFound = true;
           }
         }
 
         //Displays messages to let user know about their guess.
         if (letterFound === true) {
-          for (let i=0; i < this.state.gameState.answer.length; i++) {
-            if (this.state.gameState.letter === this.state.gameState.answer[i]) {
+          for (let i=0; i < this.props.answer.length; i++) {
+            if (this.state.gameState.letter === this.props.answer[i]) {
               rightGuesses = rightGuesses + 1;
             }	
           }
@@ -264,7 +265,7 @@ class App extends Component {
   kenAnimation = (rightGuesses) => {
     let totalHealth2 = this.state.gameState.totalHealth2;
    
-      return totalHealth2 = 100 - (100*(rightGuesses/this.state.gameState.answer.length));
+      return totalHealth2 = 100 - (100*(rightGuesses/this.props.answer.length));
   } //kenAnimation
   
   //This function updates the health bar for Ken.

@@ -31,7 +31,7 @@ class StatusScreen extends Component {
             
         }
         //If the user gets a perfect game, display the following:
-        else if (this.props.gameState.answer.length === this.props.gameState.rightGuesses
+        else if (this.props.answer.length === this.props.gameState.rightGuesses
         && this.props.gameState.nWrong === 0) {
                 currentStatus = <div>
                                     <p>YOU WIN!</p>
@@ -55,7 +55,7 @@ class StatusScreen extends Component {
               
         }
         //If the user wins
-        else if (this.props.gameState.answer.length === this.props.gameState.rightGuesses) {
+        else if (this.props.answer.length === this.props.gameState.rightGuesses) {
             currentStatus = <div>
                                 <p>YOU WIN!</p>
                                 {!this.props.gameState.decisionSound &&
