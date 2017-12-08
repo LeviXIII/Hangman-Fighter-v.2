@@ -1,1 +1,13 @@
 export const SET_ANSWER = 'set_answer';
+export const SET_LETTER = 'set_letter';
+export const SET_N_WRONG = 'set_n_wrong';
+export const SET_RIGHT_GUESSES = 'set_right_guesses';
+export const SET_USER_MESSAGE = 'set_user_message';
+export const SET_PAST_GUESSES = 'set_past_guesses';
+export const SET_CONTINUE_GAME = 'set_continue_game';
+export const SET_TOTAL_HEALTH1 = 'set_total_health1';
+export const SET_TOTAL_HEALTH2 = 'set_total_health2';
+export const SET_KEN_HIT = 'set_ken_hit';
+export const SET_RYU_HIT = 'set_ryu_hit';
+export const SET_START_GAME_FLAG = 'set_start_game_flag';
+export const SET_INITIAL_STATE = 'set_initial_state';

@@ -13,16 +13,16 @@ class StatusScreen extends Component {
         
         //Checks the status of the game and prints it to the
         //screen.
-        if (this.props.gameState.nWrong >= 6) {
+        if (this.props.nWrong >= 6) {
             currentStatus = <div>
                                 <p>YOU LOSE!</p>
                                 <p>The answer is: {this.props.answer}</p>
-                                {!this.props.gameState.decisionSound &&
+                                {!this.props.decisionSound &&
                                 <Sound url={You}
                                     playStatus={Sound.status.PLAYING}
                                     loop={false}  
                                 />}
-                                {!this.props.gameState.decisionSound &&
+                                {!this.props.decisionSound &&
                                 <Sound url={Lose}
                                     playStatus={Sound.status.PLAYING}
                                     loop={false}    
@@ -31,22 +31,21 @@ class StatusScreen extends Component {
             
         }
         //If the user gets a perfect game, display the following:
-        else if (this.props.answer.length === this.props.gameState.rightGuesses
-        && this.props.gameState.nWrong === 0) {
+        else if (this.props.answer.length === this.props.rightGuesses && this.props.nWrong === 0) {
                 currentStatus = <div>
                                     <p>YOU WIN!</p>
                                     <p>PERFECT!</p>
-                                    {!this.props.gameState.decisionSound &&
+                                    {!this.props.decisionSound &&
                                     <Sound url={You}
                                         playStatus={Sound.status.PLAYING}
                                         loop={false} 
                                     />}
-                                    {!this.props.gameState.decisionSound &&
+                                    {!this.props.decisionSound &&
                                     <Sound url={Win}
                                         playStatus={Sound.status.PLAYING}
                                         loop={false}
                                     />}
-                                    {!this.props.gameState.decisionSound &&
+                                    {!this.props.decisionSound &&
                                     <Sound url={Perfect}
                                         playStatus={Sound.status.PLAYING}
                                         loop={false}    
@@ -55,15 +54,15 @@ class StatusScreen extends Component {
               
         }
         //If the user wins
-        else if (this.props.answer.length === this.props.gameState.rightGuesses) {
+        else if (this.props.answer.length === this.props.rightGuesses) {
             currentStatus = <div>
                                 <p>YOU WIN!</p>
-                                {!this.props.gameState.decisionSound &&
+                                {!this.props.decisionSound &&
                                 <Sound url={You}
                                     playStatus={Sound.status.PLAYING}
                                     loop={false}
                                 />}
-                                {!this.props.gameState.decisionSound &&
+                                {!this.props.decisionSound &&
                                 <Sound url={Win}
                                     playStatus={Sound.status.PLAYING}
                                     loop={false}
@@ -75,8 +74,8 @@ class StatusScreen extends Component {
         else {
             currentStatus = <div>
                                 <p>Here are your previous guesses: </p>
-                                <div>{this.props.gameState.pastGuesses.join(', ')}</div>
-                                <p>You have {this.props.gameState.guessesRemaining - this.props.gameState.nWrong} guesses left.</p>
+                                <div>{this.props.pastGuesses.join(', ')}</div>
+                                <p>You have {this.props.guessesRemaining - this.props.nWrong} guesses left.</p>
                             </div>
         }
 
@@ -91,6 +90,10 @@ class StatusScreen extends Component {
 const mapStateToProps = (state) => {
     return {
         answer: state.gameState.answer,
+        nWrong: state.gameState.nWrong,
+        pastGuesses: state.gameState.pastGuesses,
+        decisionSound: state.animation.decisionSound,
+        guessesRemaining: state.gameState.guessesRemaining,
     }
 }
 

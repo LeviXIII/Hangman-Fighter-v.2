@@ -1,7 +1,27 @@
-import { SET_ANSWER } from '../actions/types';
+import {
+  SET_ANSWER,
+  SET_LETTER,
+  SET_N_WRONG,
+  SET_RIGHT_GUESSES,
+  SET_USER_MESSAGE,
+  SET_PAST_GUESSES,
+  SET_CONTINUE_GAME,
+  SET_START_GAME_FLAG,
+  SET_INITIAL_STATE,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   answer: '',
+  letter: '',
+  nWrong: 0,
+  pastGuesses: [],
+  rightGuesses: 0,
+  pastGames: [],
+  continueGame: true,
+  guessesRemaining: 6,
+  startGameFlag: true,
+  newRound: true,
+  userMessage: 'Please enter a letter in the box below:',
 };
 
 //If state is undefined, it state will be equal to initial state and return (ES6)
@@ -10,14 +30,24 @@ export default (state = INITIAL_STATE, action) => {
     case SET_ANSWER:
       //Made a new object and put all the state on it along with the new answer.
       return { ...state, answer: action.payload }; 
+    case SET_LETTER:
+      return { ...state, letter: action.payload };
+    case SET_N_WRONG:
+      return { ...state, nWrong: action.payload };
+    case SET_RIGHT_GUESSES:
+      return { ...state, rightGuesses: action.payload };
+    case SET_USER_MESSAGE:
+      return { ...state, userMessage: action.payload };
+    case SET_PAST_GUESSES:
+      return { ...state, pastGuesses: action.payload };
+    case SET_CONTINUE_GAME:
+      return { ...state, continueGame: action.payload };
+    case SET_START_GAME_FLAG:
+      return { ...state, startGameFlag: action.payload };
+    case SET_INITIAL_STATE:
+      return { ...state, state: INITIAL_STATE };
     default:
       return state;   //Returns whatever state it was at from the last time the reducer ran.
   }
-  // return {
-  //   letter: '',
-  //   answer: '',
-  //   nWrong: 0,
-  //   pastGuesses: [],
-  //   rightGuesses: 0,			  //Used to count against the length of the answer.
-  // }
+  
 }

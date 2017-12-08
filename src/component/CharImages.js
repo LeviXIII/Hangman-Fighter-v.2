@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { setKenHit, setRyuHit } from '../actions';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Sound from 'react-sound';
 
@@ -24,30 +26,34 @@ class CharImages extends Component {
         let ryu;
         let fireballStyle = hideFireball;
         
-        if (this.props.gameState.kenHit) {
+        if (this.props.kenHit) {
             setTimeout(() => {
                 ken = IdleKen;
                 ryu = IdleRyu;
-                this.props.resetAnimations();
+                this.props.setKenHit(false);
+                this.props.setRyuHit(false);
+                //this.props.resetAnimations();
             }, 1700);
             ken = KenHit;
             ryu = RyuKick;
         }
-        else if (this.props.gameState.ryuHit) {
+        else if (this.props.ryuHit) {
             setTimeout(() => {
                 ken = IdleKen;
                 ryu = IdleRyu;
-                this.props.resetAnimations();
+                this.props.setKenHit(false);
+                this.props.setRyuHit(false);
+                //this.props.resetAnimations();
             }, 1000);
             ken = KenFireball;
             ryu = RyuHit;
             fireballStyle = seeFireball;
         }
-        else if (this.props.gameState.totalHealth1 === 0) {
+        else if (this.props.totalHealth1 === 0) {
             ken = KenFall;
             ryu = IdleRyu;
         }
-        else if (this.props.gameState.totalHealth2 === 0) {
+        else if (this.props.totalHealth2 === 0) {
             ken = IdleKen;
             ryu = RyuFall;
         }
@@ -66,12 +72,12 @@ class CharImages extends Component {
                             style={fireballStyle} src={Fireball} />    
                 </ReactCSSTransitionGroup>
                 
-                {this.props.gameState.ryuHit && <Sound
+                {this.props.ryuHit && <Sound
                     url={KenHadoukenSound}
                     playStatus={Sound.status.PLAYING}
                     loop={false}
                 />}
-                {this.props.gameState.kenHit && <Sound
+                {this.props.kenHit && <Sound
                     url={RyuKickSound}
                     playStatus={Sound.status.PLAYING}
                     loop={false}
@@ -96,4 +102,13 @@ const hideFireball = {
     marginTop: '10%',
 };
 
-export default CharImages;
+const mapStateToProps = (state) => {
+    return {
+        totalHealth1: state.animation.totalHealth1,
+        totalHealth2: state.animation.totalHealth2,
+        kenHit: state.animation.kenHit,
+        ryuHit: state.animation.ryuHit,
+    };
+};
+
+export default connect(mapStateToProps, { setKenHit, setRyuHit })(CharImages);
