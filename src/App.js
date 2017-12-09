@@ -3,7 +3,7 @@
 ////////////////////////
 
 import React, { Component } from 'react';
-import Sound from 'react-sound';
+import ReactAudioPlayer from 'react-audio-player';
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './actions';
@@ -14,34 +14,35 @@ import Highscores from './component/Highscores';
 import Hangman from './component/Hangman';
 
 import imageTitle from './images/Title-font.png';
-import StartSound from './audio/Start-sound.mp3';
+import startSound from './audio/Start-sound.mp3';
 
 import './styles/style.css';
+import { setInitialState } from './actions';
 
 class App extends Component {
   constructor() {
     super();
 
-    this.state = {
-        gameState: {
-          // letter: '',
-          // answer: '',
-          // nWrong: 0,
-          // pastGuesses: [],
-          // rightGuesses: 0,			  //Used to count against the length of the answer.
-          // pastGames: [],
-          // continueGame: true,
-          // guessesRemaining: 6,		//The number of guesses remaining.
-          // totalHealth1: 6,
-          // totalHealth2: 100,
-          // startGameFlag: true,
-          // kenHit: false,
-          // ryuHit: false,
-          // newRound: true,
-          // decisionSound: false,
-          // userMessage: 'Please enter a letter in the box below:',
-        }
-    }
+    // this.state = {
+    //     gameState: {
+    //       // letter: '',
+    //       // answer: '',
+    //       // nWrong: 0,
+    //       // pastGuesses: [],
+    //       // rightGuesses: 0,			  //Used to count against the length of the answer.
+    //       // pastGames: [],
+    //       // continueGame: true,
+    //       // guessesRemaining: 6,		//The number of guesses remaining.
+    //       // totalHealth1: 6,
+    //       // totalHealth2: 100,
+    //       // startGameFlag: true,
+    //       // kenHit: false,
+    //       // ryuHit: false,
+    //       // newRound: true,
+    //       // decisionSound: false,
+    //       // userMessage: 'Please enter a letter in the box below:',
+    //     }
+    // }
     //this.clickGuess = this.clickGuess.bind(this);
   }
 
@@ -52,71 +53,57 @@ class App extends Component {
     this.guessAmount = guessAmount;
   }
 
-  //Used to read in data from local storage.
   componentWillMount() {
-
-    // if (this.state.gameState.startGameFlag === true) {
+    
     //Get records from local storage.
     let recordStr = localStorage.getItem("gameRecords");
-    if (recordStr === undefined) {
-      let gameRecords = JSON.parse(recordStr);
-
-      //if (Array.isArray(gameRecords) === false) {
-        gameRecords = [];
-      //}
-
-      this.startGame(gameRecords);
-    }
-    else {
-      this.startGame();
-    }
     
-    // }
-
-
+    if (recordStr !== null) {
+      let gameRecords = JSON.parse(recordStr);
+      this.props.setPastGames(gameRecords);
+    }
+  
+    this.startGame();
   }
 
   //Mainly used to update GameStats to records
   componentWillUpdate() {
-    let gameStats = this.state.gameState.pastGames;
+    // let gameStats = this.state.gameState.pastGames;
     
-    //Check to see if the game is over and decides whether to start
-    //a new game or not.
-    if (this.props.answer.length === this.state.gameState.rightGuesses
-      || this.state.gameState.nWrong >= 6) {
-        //Reset the state if starting again.
-        if (this.state.gameState.letter === 'y' || this.state.gameState.letter === 'n') {
-          //Push the records into pastGames. Must be here in order
-          //to only run once.
-          if (this.state.gameState.nWrong >= 6) {
-            //Add the stats of the game to an array of objects.    
-            gameStats.push(new this.GameStats('lose', 
-                                          this.state.gameState.pastGuesses,
-                                          this.state.gameState.pastGuesses.length));
-          }
-          else if (this.props.answer.length === this.state.gameState.rightGuesses){
-            //Add the stats of the game to an array of objects.
-            gameStats.push(new this.GameStats('win', 
-                                          this.state.gameState.pastGuesses,
-                                          this.state.gameState.pastGuesses.length));
-          }
-          this.startGame(gameStats);
-        }
-    }
+    // //Check to see if the game is over and decides whether to start
+    // //a new game or not.
+    // if (this.props.answer.length === this.state.gameState.rightGuesses
+    //   || this.state.gameState.nWrong >= 6) {
+    //     //Reset the state if starting again.
+    //     if (this.state.gameState.letter === 'y' || this.state.gameState.letter === 'n') {
+    //       //Push the records into pastGames. Must be here in order
+    //       //to only run once.
+    //       if (this.state.gameState.nWrong >= 6) {
+    //         //Add the stats of the game to an array of objects.    
+    //         gameStats.push(new this.GameStats('lose', 
+    //                                       this.state.gameState.pastGuesses,
+    //                                       this.state.gameState.pastGuesses.length));
+    //       }
+    //       else if (this.props.answer.length === this.state.gameState.rightGuesses){
+    //         //Add the stats of the game to an array of objects.
+    //         gameStats.push(new this.GameStats('win', 
+    //                                       this.state.gameState.pastGuesses,
+    //                                       this.state.gameState.pastGuesses.length));
+    //       }
+    //       this.startGame(gameStats);
+    //     }
+    // }
   }
 
   //This function selects a random word as the answer and starts the game.
   //It will only one once per game due to the startGameFlag.
-  startGame = (newRecord) => {
-
-    //Sets up the answer for the game.
-    const index = Math.floor(Math.random()*this.props.words.length);
-    this.props.setAnswer(this.props.words[index]);
+  startGame = () => {
     
-    if (this.props.letter === 'y' || this.props.startGameFlag === true) {
+    if (this.props.letter === 'y') {
       
-      this.props.setInitialState();
-      this.props.setStartGameFlag(false);
+      //this.props.setInitialGameState();
+  
+      //this.props.setStartGameFlag(false);
       // this.setState({ gameState: {
       //   ...this.state.gameState,
       //   //answer: this.props.setAnswer(this.props.words[index]),
@@ -134,8 +121,18 @@ class App extends Component {
       //   userMessage: 'Please enter a letter in the box below:',
       // }});
     }
-    //Save game records to local storage on browser.
-    //localStorage.setItem('gameRecords', JSON.stringify(this.state.gameState.pastGames));
+    
+    //Sets up the answer for the game.
+    const index = Math.floor(Math.random()*this.props.words.length);
+    this.props.setAnswer(this.props.words[index]);
+
+    //Since initial state will wipe past games, must pull it again from local storage.
+    let recordStr = localStorage.getItem("gameRecords");
+    
+    if (recordStr !== null) {
+      let gameRecords = JSON.parse(recordStr);
+      this.props.setPastGames(gameRecords);
+    }
   }
 
   //Proceeds with input from input window.
@@ -199,15 +196,41 @@ class App extends Component {
     let ryuHit = false;
     let repeat = false;			  //Resets repeat flag on each loop.
     let letterFound = false;	//Flag to proceed with a correct guess.
-  
+    let gameStats = this.props.pastGames;
+
     //Will stop the game after final guess if false.
     if (this.props.answer.length === this.props.rightGuesses || this.props.nWrong >= 6) {
-      continueGame = false;
+      console.log('hey not here')
+      if (this.props.nWrong >= 6) {
+        //Add the stats of the game to an array of objects.    
+        gameStats.push(new this.GameStats('lose', 
+                                      this.props.pastGuesses,
+                                      this.props.pastGuesses.length));
+      }
+      else {
+        //Add the stats of the game to an array of objects.
+        gameStats.push(new this.GameStats('win', 
+                                      this.props.pastGuesses,
+                                      this.props.pastGuesses.length));
+      }
+      //Save game records to local storage on browser.
+      this.props.setPastGames(gameStats);
+      localStorage.setItem('gameRecords', JSON.stringify(this.props.pastGames));
+      
+      if (this.props.letter === 'y') {
+        //continueGame = true;
+        //this.startGame();
+        //this.props.setInitialGameState();
+      }
+      else if (this.props.letter === 'n') {
+        continueGame = false;
+      }
+      
     }
 
     //Uses regex to look for the strings given (case insensitive)
     //due to the "i".
-    if (/[a-z]/i.test(this.state.gameState.letter)) {
+    if (/[a-z]/i.test(this.props.letter)) {
       //Checks for past guesses.
       for (let i=0; i < this.props.pastGuesses.length; i++) {
         if (this.props.letter === this.props.pastGuesses[i]) {
@@ -253,7 +276,6 @@ class App extends Component {
     }
 
     //Clears the input box and set state.
-    this.props.setContinueGame(continueGame);
     this.props.setLetter('');
     this.props.setNWrong(nWrong);
     this.props.setRightGuesses(rightGuesses);
@@ -317,7 +339,9 @@ class App extends Component {
                 />) }/>
               <Route path="/instructions" exact component={Instructions} />
               <Route path="/highscores" exact render={() =>
-                (<Highscores pastGames={this.state.gameState.pastGames} />)
+                (<Highscores 
+                  //pastGames={this.props.pastGames}
+                />)
               }/>
           </Switch>
           </div>
@@ -325,10 +349,11 @@ class App extends Component {
         
         
         {/* Plays Starting sound effect if it is a new round. */}
-        {this.state.gameState.newRound && <Sound
+        <ReactAudioPlayer src={startSound} autoPlay/>
+        {/* {this.state.gameState.newRound && <Sound
           url={StartSound}
           playStatus={Sound.status.PLAYING}
-        />}
+        />} */}
       </div>
     );
   }
@@ -340,6 +365,7 @@ const mapStateToProps = (state) => {
     answer: state.gameState.answer,
     letter: state.gameState.letter,
     nWrong: state.gameState.nWrong,
+    pastGames: state.gameState.pastGames,
     pastGuesses: state.gameState.pastGuesses,
     rightGuesses: state.gameState.rightGuesses,
     totalHealth1: state.animation.totalHealth1,

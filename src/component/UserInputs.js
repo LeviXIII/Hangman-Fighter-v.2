@@ -7,8 +7,7 @@ class UserInputs extends Component {
         let userPrompt;
         
         //Changes the prompts depending on game's state.
-        if (this.props.answer.length === this.props.rightGuesses
-            || this.props.nWrong >= 6) {
+        if (this.props.answer.length === this.props.rightGuesses || this.props.nWrong >= 6) {
                 userPrompt = 'Next Round? y/n';
                 buttonMsg = 'Submit';
         }

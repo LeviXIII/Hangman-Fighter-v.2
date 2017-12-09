@@ -3,7 +3,7 @@ import {
   SET_TOTAL_HEALTH2,
   SET_KEN_HIT,
   SET_RYU_HIT,
-  SET_INITIAL_STATE
+  SET_INITIAL_ANI_STATE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -24,8 +24,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, kenHit: action.payload };
     case SET_RYU_HIT:
       return { ...state, ryuHit: action.payload };
-    case SET_INITIAL_STATE:
-      return { ...state, state: INITIAL_STATE }; 
+    case SET_INITIAL_ANI_STATE:
+      return INITIAL_STATE; 
     default:
       return state;   //Returns whatever state it was at from the last time the reducer ran.
   } 

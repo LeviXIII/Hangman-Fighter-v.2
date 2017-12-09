@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Sound from 'react-sound';
 import ReactAudioPlayer from 'react-audio-player';
 
 import You from '../audio/You-sound.mp3';
@@ -12,7 +11,6 @@ class StatusScreen extends Component {
 
     render() {
         let currentStatus;
-        let newSound = <ReactAudioPlayer src={Win} autoPlay/>
 
         //Checks the status of the game and prints it to the
         //screen.
@@ -20,7 +18,8 @@ class StatusScreen extends Component {
             currentStatus = <div>
                                 <p>YOU LOSE!</p>
                                 <p>The answer is: {this.props.answer}</p>
-                                {!this.props.decisionSound &&
+                                <ReactAudioPlayer src={You} autoPlay onEnded={() => {<ReactAudioPlayer src={Lose} autoPlay/>}}/>
+                                {/* {!this.props.decisionSound &&
                                 <Sound url={You}
                                     playStatus={Sound.status.PLAYING}
                                     loop={false}  
@@ -29,7 +28,7 @@ class StatusScreen extends Component {
                                 <Sound url={Lose}
                                     playStatus={Sound.status.PLAYING}
                                     loop={false}    
-                                />}
+                                />} */}
                             </div>;
             
         }
@@ -38,7 +37,12 @@ class StatusScreen extends Component {
                 currentStatus = <div>
                                     <p>YOU WIN!</p>
                                     <p>PERFECT!</p>
-                                    {!this.props.decisionSound &&
+                                    <ReactAudioPlayer src={You} autoPlay 
+                                        onEnded={() => {<ReactAudioPlayer src={Win} autoPlay
+                                            onEnded={() => {<ReactAudioPlayer src={Perfect} autoPlay/>}}
+                                        />}}
+                                    />
+                                    {/* {!this.props.decisionSound &&
                                     <Sound url={You}
                                         playStatus={Sound.status.PLAYING}
                                         loop={false} 
@@ -52,7 +56,7 @@ class StatusScreen extends Component {
                                     <Sound url={Perfect}
                                         playStatus={Sound.status.PLAYING}
                                         loop={false}    
-                                    />}
+                                    />} */}
                                 </div>;
               
         }
@@ -71,7 +75,6 @@ class StatusScreen extends Component {
                                     playStatus={Sound.status.PLAYING}
                                     loop={false}
                                 />} */}
-                                <ReactAudioPlayer src={Win} autoPlay onEnded={() => {<ReactAudioPlayer src={Win} autoPlay/>}} />
                             </div>;
             
         }

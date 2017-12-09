@@ -4,10 +4,11 @@ import {
   SET_N_WRONG,
   SET_RIGHT_GUESSES,
   SET_USER_MESSAGE,
+  SET_PAST_GAMES,
   SET_PAST_GUESSES,
   SET_CONTINUE_GAME,
   SET_START_GAME_FLAG,
-  SET_INITIAL_STATE,
+  SET_INITIAL_GAME_STATE,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -38,14 +39,16 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, rightGuesses: action.payload };
     case SET_USER_MESSAGE:
       return { ...state, userMessage: action.payload };
+    case SET_PAST_GAMES:
+      return { ...state, pastGames: action.payload };
     case SET_PAST_GUESSES:
       return { ...state, pastGuesses: action.payload };
     case SET_CONTINUE_GAME:
       return { ...state, continueGame: action.payload };
     case SET_START_GAME_FLAG:
       return { ...state, startGameFlag: action.payload };
-    case SET_INITIAL_STATE:
-      return { ...state, state: INITIAL_STATE };
+    case SET_INITIAL_GAME_STATE:
+      return state = INITIAL_STATE;
     default:
       return state;   //Returns whatever state it was at from the last time the reducer ran.
   }

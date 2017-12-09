@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReactAudioPlayer from 'react-audio-player';
 
 import UserInputs from './UserInputs';
 import CharImages from './CharImages';
@@ -8,9 +9,7 @@ import Blanks from './Blanks';
 import StatusScreen from './StatusScreen';
 import Highscores from './Highscores';
 
-import Sound from 'react-sound';
-
-import RecordsSound from '../audio/New-challenger-sound.mp3';
+import recordsSound from '../audio/New-challenger-sound.mp3';
 
 class Hangman extends Component {
 
@@ -47,12 +46,13 @@ class Hangman extends Component {
         display =   <div>
                         <h1 className="headingfont">Thanks for playing!</h1>
                         <Highscores
-                        // pastGames={this.props.gameState.pastGames}
+                            //pastGames={this.props.gameState.pastGames}
                         />
-                        <Sound
+                        <ReactAudioPlayer src={recordsSound} autoPlay/>
+                        {/* <Sound
                             url={RecordsSound}
                             playStatus={Sound.status.PLAYING}
-                        />
+                        /> */}
                     </div>
     }
     return (
@@ -64,7 +64,7 @@ class Hangman extends Component {
 const mapStateToProps = (state) => {
     return {
         continueGame: state.gameState.continueGame,
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps)(Hangman);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setKenHit, setRyuHit } from '../actions';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Sound from 'react-sound';
+import ReactAudioPlayer from 'react-audio-player';
 
 import RyuHit from '../images/Ryu-hit.gif';
 import KenHit from '../images/Ken-hit.gif';
@@ -72,16 +72,20 @@ class CharImages extends Component {
                             style={fireballStyle} src={Fireball} />    
                 </ReactCSSTransitionGroup>
                 
-                {this.props.ryuHit && <Sound
+                {this.props.ryuHit && 
+                <ReactAudioPlayer src={KenHadoukenSound} autoPlay/>}
+                {/* <Sound
                     url={KenHadoukenSound}
                     playStatus={Sound.status.PLAYING}
                     loop={false}
-                />}
-                {this.props.kenHit && <Sound
+                />} */}
+                {this.props.kenHit && 
+                <ReactAudioPlayer src={RyuKickSound} autoPlay/>}
+                {/* <Sound
                     url={RyuKickSound}
                     playStatus={Sound.status.PLAYING}
                     loop={false}
-                />}
+                />} */}
                 <img key={ken} className="kenIdle" src={ken} />
                 <img key={ryu} className="ryuIdle" src={ryu} />
             </div>

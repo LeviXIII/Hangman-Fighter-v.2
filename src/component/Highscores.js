@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import '../styles/style.css';
 
@@ -27,4 +28,10 @@ class Highscores extends Component {
     }
 }
 
-export default Highscores;
+const mapStateToProps = (state) => {
+    return {
+      pastGames: state.gameState.pastGames,
+    };
+  };
+
+export default connect(mapStateToProps)(Highscores);

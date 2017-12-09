@@ -4,6 +4,7 @@ import {
   SET_N_WRONG,
   SET_RIGHT_GUESSES,
   SET_USER_MESSAGE,
+  SET_PAST_GAMES,
   SET_PAST_GUESSES,
   SET_CONTINUE_GAME,
   SET_TOTAL_HEALTH1,
@@ -11,7 +12,8 @@ import {
   SET_KEN_HIT,
   SET_RYU_HIT,
   SET_START_GAME_FLAG,
-  SET_INITIAL_STATE,
+  SET_INITIAL_GAME_STATE,
+  SET_INITIAL_ANI_STATE,
 } from './types';
 
 export const setAnswer = (answer) => {
@@ -46,6 +48,13 @@ export const setUserMessage = (userMessage) => {
   return {
     type: SET_USER_MESSAGE,
     payload: userMessage
+  }
+}
+
+export const setPastGames = (pastGames) => {
+  return {
+    type: SET_PAST_GAMES,
+    payload: pastGames
   }
 }
 
@@ -98,9 +107,14 @@ export const setRyuHit = (ryuHit) => {
   }
 }
 
-export const setInitialState = () => {
+export const setInitialGameState = () => {
   return {
-    type: SET_INITIAL_STATE,
-    payload: ''
+    type: SET_INITIAL_GAME_STATE,
+  }
+};
+
+export const setInitialAniState = () => {
+  return {
+    type: SET_INITIAL_ANI_STATE,
   }
 };
