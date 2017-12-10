@@ -18,17 +18,7 @@ class StatusScreen extends Component {
             currentStatus = <div>
                                 <p>YOU LOSE!</p>
                                 <p>The answer is: {this.props.answer}</p>
-                                <ReactAudioPlayer src={You} autoPlay onEnded={() => {<ReactAudioPlayer src={Lose} autoPlay/>}}/>
-                                {/* {!this.props.decisionSound &&
-                                <Sound url={You}
-                                    playStatus={Sound.status.PLAYING}
-                                    loop={false}  
-                                />}
-                                {!this.props.decisionSound &&
-                                <Sound url={Lose}
-                                    playStatus={Sound.status.PLAYING}
-                                    loop={false}    
-                                />} */}
+                                {/* <ReactAudioPlayer src={You} autoPlay onEnded={() => {<ReactAudioPlayer src={Lose} autoPlay/>}}/> */}
                             </div>;
             
         }
@@ -37,26 +27,11 @@ class StatusScreen extends Component {
                 currentStatus = <div>
                                     <p>YOU WIN!</p>
                                     <p>PERFECT!</p>
-                                    <ReactAudioPlayer src={You} autoPlay 
+                                    {/* <ReactAudioPlayer src={You} autoPlay 
                                         onEnded={() => {<ReactAudioPlayer src={Win} autoPlay
                                             onEnded={() => {<ReactAudioPlayer src={Perfect} autoPlay/>}}
                                         />}}
-                                    />
-                                    {/* {!this.props.decisionSound &&
-                                    <Sound url={You}
-                                        playStatus={Sound.status.PLAYING}
-                                        loop={false} 
-                                    />}
-                                    {!this.props.decisionSound &&
-                                    <Sound url={Win}
-                                        playStatus={Sound.status.PLAYING}
-                                        loop={false}
-                                    />}
-                                    {!this.props.decisionSound &&
-                                    <Sound url={Perfect}
-                                        playStatus={Sound.status.PLAYING}
-                                        loop={false}    
-                                    />} */}
+                                    /> */}
                                 </div>;
               
         }
@@ -64,17 +39,7 @@ class StatusScreen extends Component {
         else if (this.props.answer.length === this.props.rightGuesses) {
             currentStatus = <div>
                                 <p>YOU WIN!</p>
-                                <ReactAudioPlayer src={You} autoPlay onEnded={() => {<ReactAudioPlayer src={Win} autoPlay/>}}/>
-                                {/* {!this.props.decisionSound &&
-                                <Sound url={You}
-                                    playStatus={Sound.status.PLAYING}
-                                    onFinishedPlaying={() => {<Sound url={Win} playStatus={Sound.status.PLAYING}/>}}
-                                />} */}
-                                {/* {!this.props.decisionSound &&
-                                <Sound url={Win}
-                                    playStatus={Sound.status.PLAYING}
-                                    loop={false}
-                                />} */}
+                                {/* <ReactAudioPlayer src={You} autoPlay onEnded={() => {<ReactAudioPlayer src={Win} autoPlay/>}}/> */}
                             </div>;
             
         }

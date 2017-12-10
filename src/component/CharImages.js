@@ -72,20 +72,8 @@ class CharImages extends Component {
                             style={fireballStyle} src={Fireball} />    
                 </ReactCSSTransitionGroup>
                 
-                {this.props.ryuHit && 
-                <ReactAudioPlayer src={KenHadoukenSound} autoPlay/>}
-                {/* <Sound
-                    url={KenHadoukenSound}
-                    playStatus={Sound.status.PLAYING}
-                    loop={false}
-                />} */}
-                {this.props.kenHit && 
-                <ReactAudioPlayer src={RyuKickSound} autoPlay/>}
-                {/* <Sound
-                    url={RyuKickSound}
-                    playStatus={Sound.status.PLAYING}
-                    loop={false}
-                />} */}
+                {this.props.ryuHit && <ReactAudioPlayer src={KenHadoukenSound} autoPlay/>}
+                {this.props.kenHit && <ReactAudioPlayer src={RyuKickSound} autoPlay/>}
                 <img key={ken} className="kenIdle" src={ken} />
                 <img key={ryu} className="ryuIdle" src={ryu} />
             </div>

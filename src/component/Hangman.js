@@ -14,45 +14,23 @@ import recordsSound from '../audio/New-challenger-sound.mp3';
 class Hangman extends Component {
 
   render() {
-    
     //Only displays game if the user continues.
     let display;
 
     if (this.props.continueGame === true) {
         display =   <div>
-                    <UserInputs
-                    // clickGuess={this.props.clickGuess}
-                    guessLetter={this.props.guessLetter}
-                    checkLetter={this.props.checkLetter}
-                    // submittingLetter={this.props.submittingLetter}
-                    // gameState={this.props.gameState}
-                    />
-                    <CharImages 
-                    // gameState={this.props.gameState}
-                    // resetAnimations={this.props.resetAnimations}
-                    />
-                    <StatusScreen
-                    // gameState={this.props.gameState}
-                    />
-                    <LifeBars
-                    // gameState={this.props.gameState}
-                    />
-                    <Blanks
-                    // gameState={this.props.gameState}
-                    />
+                    <UserInputs guessLetter={this.props.guessLetter} checkLetter={this.props.checkLetter} />
+                    <CharImages />
+                    <StatusScreen />
+                    <LifeBars />
+                    <Blanks />
                     </div>
     }
     else {
         display =   <div>
                         <h1 className="headingfont">Thanks for playing!</h1>
-                        <Highscores
-                            //pastGames={this.props.gameState.pastGames}
-                        />
+                        <Highscores />
                         <ReactAudioPlayer src={recordsSound} autoPlay/>
-                        {/* <Sound
-                            url={RecordsSound}
-                            playStatus={Sound.status.PLAYING}
-                        /> */}
                     </div>
     }
     return (

@@ -20,8 +20,6 @@ const INITIAL_STATE = {
   pastGames: [],
   continueGame: true,
   guessesRemaining: 6,
-  startGameFlag: true,
-  newRound: true,
   userMessage: 'Please enter a letter in the box below:',
 };
 
@@ -40,7 +38,7 @@ export default (state = INITIAL_STATE, action) => {
     case SET_USER_MESSAGE:
       return { ...state, userMessage: action.payload };
     case SET_PAST_GAMES:
-      return { ...state, pastGames: action.payload };
+      return { ...state, pastGames: (action.payload) };
     case SET_PAST_GUESSES:
       return { ...state, pastGuesses: action.payload };
     case SET_CONTINUE_GAME:
@@ -48,7 +46,7 @@ export default (state = INITIAL_STATE, action) => {
     case SET_START_GAME_FLAG:
       return { ...state, startGameFlag: action.payload };
     case SET_INITIAL_GAME_STATE:
-      return state = INITIAL_STATE;
+      return INITIAL_STATE;
     default:
       return state;   //Returns whatever state it was at from the last time the reducer ran.
   }

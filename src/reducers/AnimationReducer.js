@@ -11,7 +11,6 @@ const INITIAL_STATE = {
   totalHealth2: 100,
   kenHit: false,
   ryuHit: false,
-  decisionSound: false,
 };
 
 export default (state = INITIAL_STATE, action) => {

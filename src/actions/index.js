@@ -54,14 +54,14 @@ export const setUserMessage = (userMessage) => {
 export const setPastGames = (pastGames) => {
   return {
     type: SET_PAST_GAMES,
-    payload: pastGames
+    payload: Array.from(pastGames)
   }
 }
 
 export const setPastGuesses = (pastGuesses) => {
   return {
     type: SET_PAST_GUESSES,
-    payload: pastGuesses
+    payload: Array.from(pastGuesses)
   }
 }
 
