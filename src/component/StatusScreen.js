@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Sound from 'react-sound';
+import { connect } from 'react-redux';
+import ReactAudioPlayer from 'react-audio-player';
 
 import You from '../audio/You-sound.mp3';
 import Lose from '../audio/Lose-Sound.mp3';
@@ -7,66 +8,38 @@ import Win from '../audio/Win-sound.mp3';
 import Perfect from '../audio/Perfect-sound.mp3';
 
 class StatusScreen extends Component {
+
     render() {
         let currentStatus;
-        
+
         //Checks the status of the game and prints it to the
         //screen.
-        if (this.props.gameState.nWrong >= 6) {
+        if (this.props.nWrong >= 6) {
             currentStatus = <div>
                                 <p>YOU LOSE!</p>
-                                <p>The answer is: {this.props.gameState.answer}</p>
-                                {!this.props.gameState.decisionSound &&
-                                <Sound url={You}
-                                    playStatus={Sound.status.PLAYING}
-                                    loop={false}  
-                                />}
-                                {!this.props.gameState.decisionSound &&
-                                <Sound url={Lose}
-                                    playStatus={Sound.status.PLAYING}
-                                    loop={false}    
-                                />}
+                                <p>The answer is: {this.props.answer}</p>
+                                {/* <ReactAudioPlayer src={You} autoPlay onEnded={() => {<ReactAudioPlayer src={Lose} autoPlay/>}}/> */}
                             </div>;
             
         }
         //If the user gets a perfect game, display the following:
-        else if (this.props.gameState.answer.length === this.props.gameState.rightGuesses
-        && this.props.gameState.nWrong === 0) {
+        else if (this.props.answer.length === this.props.rightGuesses && this.props.nWrong === 0) {
                 currentStatus = <div>
                                     <p>YOU WIN!</p>
                                     <p>PERFECT!</p>
-                                    {!this.props.gameState.decisionSound &&
-                                    <Sound url={You}
-                                        playStatus={Sound.status.PLAYING}
-                                        loop={false} 
-                                    />}
-                                    {!this.props.gameState.decisionSound &&
-                                    <Sound url={Win}
-                                        playStatus={Sound.status.PLAYING}
-                                        loop={false}
-                                    />}
-                                    {!this.props.gameState.decisionSound &&
-                                    <Sound url={Perfect}
-                                        playStatus={Sound.status.PLAYING}
-                                        loop={false}    
-                                    />}
+                                    {/* <ReactAudioPlayer src={You} autoPlay 
+                                        onEnded={() => {<ReactAudioPlayer src={Win} autoPlay
+                                            onEnded={() => {<ReactAudioPlayer src={Perfect} autoPlay/>}}
+                                        />}}
+                                    /> */}
                                 </div>;
               
         }
         //If the user wins
-        else if (this.props.gameState.answer.length === this.props.gameState.rightGuesses) {
+        else if (this.props.answer.length === this.props.rightGuesses) {
             currentStatus = <div>
                                 <p>YOU WIN!</p>
-                                {!this.props.gameState.decisionSound &&
-                                <Sound url={You}
-                                    playStatus={Sound.status.PLAYING}
-                                    loop={false}
-                                />}
-                                {!this.props.gameState.decisionSound &&
-                                <Sound url={Win}
-                                    playStatus={Sound.status.PLAYING}
-                                    loop={false}
-                                />}
+                                {/* <ReactAudioPlayer src={You} autoPlay onEnded={() => {<ReactAudioPlayer src={Win} autoPlay/>}}/> */}
                             </div>;
             
         }
@@ -74,8 +47,8 @@ class StatusScreen extends Component {
         else {
             currentStatus = <div>
                                 <p>Here are your previous guesses: </p>
-                                <div>{this.props.gameState.pastGuesses.join(', ')}</div>
-                                <p>You have {this.props.gameState.guessesRemaining - this.props.gameState.nWrong} guesses left.</p>
+                                <div>{this.props.pastGuesses.join(', ')}</div>
+                                <p>You have {this.props.guessesRemaining - this.props.nWrong} guesses left.</p>
                             </div>
         }
 
@@ -87,4 +60,15 @@ class StatusScreen extends Component {
         }
 }
 
-export default StatusScreen;
+const mapStateToProps = (state) => {
+    return {
+        answer: state.gameState.answer,
+        nWrong: state.gameState.nWrong,
+        pastGuesses: state.gameState.pastGuesses,
+        rightGuesses: state.gameState.rightGuesses,
+        decisionSound: state.animation.decisionSound,
+        guessesRemaining: state.gameState.guessesRemaining,
+    }
+}
+
+export default connect(mapStateToProps)(StatusScreen);

@@ -32,7 +32,8 @@ class Instructions extends Component {
                     <li>
                         After quitting, the game will display how well you did
                         in the rounds that you played. You can also reach this
-                        screen by clicking the link at any time.
+                        screen by clicking the link at any time. Results will be
+                        saved in your local storage.
                     </li>
                     <br />
                     <li>
